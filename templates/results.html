@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quiz Results</h1>
+        </header>
+        
+        <main>
+            <div class="results-container">
+                <h2>{{ results.category }} Quiz Complete!</h2>
+                
+                <div class="score-card">
+                    <div class="score">
+                        <span class="score-value">{{ results.score }}</span>
+                        <span class="score-total">/{{ results.totalQuestions }}</span>
+                    </div>
+                    <div class="percentage">{{ results.percentage|round(1) }}%</div>
+                    
+                    {% if results.percentage >= 80 %}
+                    <div class="feedback success">Excellent work! You have a strong understanding of this topic.</div>
+                    {% elif results.percentage >= 60 %}
+                    <div class="feedback good">Good job! You have a solid grasp of the basics.</div>
+                    {% else %}
+                    <div class="feedback needs-improvement">Keep studying! You'll improve with more practice.</div>
+                    {% endif %}
+                </div>
+                
+                <div class="question-review">
+                    <h3>Review Your Answers</h3>
+                    {% for i in range(results.totalQuestions) %}
+                    <div class="review-item {% if results.answers[i].correct %}correct{% else %}incorrect{% endif %}">
+                        <div class="review-question">
+                            <span class="question-number">Question {{ i+1 }}:</span> {{ results.questions[i].question }}
+                        </div>
+                        <div class="review-answer">
+                            <div>Your answer: {{ results.questions[i].options[results.answers[i].selected] }}</div>
+                            {% if not results.answers[i].correct %}
+                            <div>Correct answer: {{ results.questions[i].options[results.questions[i].correctAnswer] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="review-explanation">
+                            {{ results.questions[i].explanation }}
+                        </div>
+                        <div class="source-container">
+                            <a href="{{ results.questions[i].sourceUrl }}" target="_blank">Source Reference</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="actions">
+                    <a href="{{ url_for('clear_quiz') }}" onclick="window.location.href='{{ url_for('quiz', category=results.category) }}'; return false;" class="btn">Try Again</a>
+                    <a href="{{ url_for('clear_quiz') }}" class="btn secondary">Choose Different Category</a>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2025 Microsoft Fabric Quiz Application</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category }} Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ category }}</h1>
+            <div class="quiz-progress">
+                <span id="question-number">Question 1</span> of <span id="total-questions">Loading...</span>
+            </div>
+        </header>
+        
+        <main>
+            <div class="quiz-container">
+                <div id="question-container">
+                    <h2 id="question-text">Loading question...</h2>
+                    <div id="options-container">
+                        <!-- Options will be loaded here -->
+                    </div>
+                </div>
+                
+                <div id="feedback-container" class="hidden">
+                    <div id="result-message"></div>
+                    <div id="explanation"></div>
+                    <div id="source-container" class="source-container">
+                        <a id="source-link" href="#" target="_blank">Source Reference</a>
+                    </div>
+                    <button id="next-button" class="btn">Next Question</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Microsoft Fabric Quiz Application</p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

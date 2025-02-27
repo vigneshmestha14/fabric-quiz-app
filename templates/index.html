@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Microsoft Fabric Quiz App</h1>
+            <p>Test your knowledge of Microsoft Fabric technologies</p>
+        </header>
+
+        <main>
+            <div class="category-selection">
+                <h2>Select a Quiz Category</h2>
+                <div class="categories">
+                    {% for category in categories %}
+                    <div class="category-card">
+                        <h3>{{ category }}</h3>
+                        <a href="{{ url_for('clear_quiz') }}" onclick="window.location.href='{{ url_for('quiz', category=category) }}'; return false;" class="btn">Start Quiz</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Microsoft Fabric Quiz Application</p>
+        </footer>
+    </div>
+</body>
+</html>
